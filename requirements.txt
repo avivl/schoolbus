@@ -1,0 +1,5 @@
+pyicloud
+googlemaps
+google-cloud-datastore==1.7.0
+google-api-python-client==1.6.6
+google-auth-httplib2
