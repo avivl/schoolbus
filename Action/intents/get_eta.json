@@ -1,0 +1,52 @@
+{
+  "id": "01c9e176-80f8-4f63-a661-9efb715f847e",
+  "name": "get_eta",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "make_name",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "id": "cee5f787-31bd-4689-ab47-4ddab4ab8b6d",
+          "required": true,
+          "dataType": "@sys.given-name",
+          "name": "name",
+          "value": "$name",
+          "prompts": [
+            {
+              "lang": "en",
+              "value": "What is your kid name?"
+            }
+          ],
+          "isList": false
+        },
+        {
+          "id": "67629dc0-85db-4455-867d-e8e8c2c7c7b4",
+          "required": false,
+          "dataType": "@sys.street-address",
+          "name": "home",
+          "value": "$home",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "speech": []
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1536318011,
+  "fallbackIntent": false,
+  "events": []
+}

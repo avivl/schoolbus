@@ -1,0 +1,32 @@
+{
+  "id": "99b34aca-d06c-4952-8b46-e5d12bc0bfc5",
+  "name": "Default Fallback Intent",
+  "auto": false,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "input.unknown",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "lang": "en",
+          "speech": [
+            "Hmm that doesn\u0027t sound like a name to me. What\u0027s your child name again?",
+            "Sorry I didn\u0027t quite understand that name. What is  your child name?"
+          ]
+        }
+      ],
+      "defaultResponsePlatforms": {},
+      "speech": []
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "lastUpdate": 1536145283,
+  "fallbackIntent": true,
+  "events": []
+}
