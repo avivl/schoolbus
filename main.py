@@ -1,15 +1,17 @@
+import base64
 import datetime
 import os
-import base64
 
+import googleapiclient.discovery
 import googlemaps
 from google.cloud import datastore
 from pyicloud import PyiCloudService
-import googleapiclient.discovery
 
-def decrypt(project_id, location_id, key_ring_id, crypto_key_id,ciphertext):
+
+def decrypt(project_id, location_id, key_ring_id, crypto_key_id, ciphertext):
     # Creates an API client for the KMS API.
-    kms_client = googleapiclient.discovery.build('cloudkms', 'v1',cache=False, cache_discovery=False)
+    kms_client = googleapiclient.discovery.build('cloudkms', 'v1', cache=False,
+                                                 cache_discovery=False)
 
     # The resource name of the CryptoKey.
     name = 'projects/{}/locations/{}/keyRings/{}/cryptoKeys/{}'.format(
@@ -22,7 +24,8 @@ def decrypt(project_id, location_id, key_ring_id, crypto_key_id,ciphertext):
         body={'ciphertext': ciphertext})
     response = request.execute()
     plaintext = base64.b64decode(response['plaintext'].encode('ascii'))
-    return plaintext
+    return plaintext.decode("utf-8")
+
 
 def schoolbus(request):
     """HTTP Cloud Function.
@@ -48,12 +51,13 @@ def schoolbus(request):
         body = '{"fulfillmentText":"%s"}' % "Can't find child name in database"
         return body
     project_id = os.environ['GCP_PROJECT']
-    password = decrypt(project_id,'global','schoolbas',Name.lower(),password)
+    password = decrypt(project_id, 'global', 'schoolbas', Name.lower(),
+                       password)
     query = datastore_client.query(kind='Home')
     home = list(query.fetch())
     query = datastore_client.query(kind='Config')
     config = list(query.fetch())
-    api = PyiCloudService(user_mail, password.decode("utf-8") )
+    api = PyiCloudService(user_mail, password)
     location = api.iphone.location()
 
     if location['isOld']:
@@ -61,8 +65,9 @@ def schoolbus(request):
         body = '{"fulfillmentText":"%s"}' % fulfillment_text
         return body
 
-    key = decrypt(project_id, 'global', 'schoolbas', 'maps-api', config[0]['maps_key'])
-    gmaps = googlemaps.Client(key = key.decode("utf-8") )
+    key = decrypt(project_id, 'global', 'schoolbas', 'maps-api',
+                  config[0]['maps_key'])
+    gmaps = googlemaps.Client(key=key)
     reverse_geocode_result = gmaps.reverse_geocode(
         (location['latitude'], location['longitude']))
     now = datetime.datetime.now()
@@ -76,4 +81,3 @@ def schoolbus(request):
                            'text']
     body = '{"fulfillmentText":"%s"}' % fulfillment_text
     return body
-
