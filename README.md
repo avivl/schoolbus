@@ -1,6 +1,6 @@
 
 # Using Google Home, Cloud Functions, Cloud Datastore, Maps Direction API, and Cloud KMS to get your kid ETA from school
-
+[![License](https://img.shields.io/github/license/avivl/schoolbus.svg)](LICENSE) [![GitHub stars](https://img.shields.io/github/stars/avivl/schoolbus.svg?style=social&label=Stars&style=for-the-badge)](https://github.com/avivl/schoolbus)
 
 ## Create credentials
 
